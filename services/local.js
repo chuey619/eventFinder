@@ -1,7 +1,7 @@
 const passport = require("passport")
 const LocalStrategy = require('passport-local').Strategy;
 
-const init = require('passport')
+const init = require('./passport')
 const User = require('../models/User')
 const authHelpers = require('./auth-helpers')
 
@@ -16,10 +16,10 @@ passport.use(
         if (!foundUser) {
             return done(null, false)
         }
-        if (!authHelpers.comaprePassword(password, user.password_digest)) {
+        if (!authHelpers.comparePassword(password, foundUser.password_digest)) {
             return done(null, false)
         } else {
-            return done(null, user)
+            return done(null, foundUser)
         }
         } catch(err) {
             console.log(err)

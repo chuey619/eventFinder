@@ -15,7 +15,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
-app.use(cookieParser)
+app.use(cookieParser())
 
 app.use(
     session({
@@ -33,13 +33,18 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use(express.static(path.join(__dirname, 'build')))
-// const authRoutes = require('./routes/authRoutes')
 
-// app.use('/auth', authRoutes)
+app.use(express.static(path.join(__dirname, 'build')))
+
+const authRoutes = require('./routes/authRouter')
+app.use('/auth', authRoutes)
+
+
+
 app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'indes.html'))
+    res.sendFile(path.join(__dirname, 'client/public', 'index.html'))
 })
+
 app.use('*', (req, res) => {
     res.status(404).json({
         message: 'not found'
@@ -49,7 +54,7 @@ app.use('*', (req, res) => {
 app.use((err, req, res, next) => {
     console.log(err)
     res.status(err.status || 500).json({
-        messae: err.message,
+        message: err.message,
         stack: err.stack
     })
 })

@@ -1,7 +1,7 @@
-const bcrypt = reqiure('bcryptjs')
+const bcrypt = require('bcryptjs')
 
-const comaprePassword = (userPassword, databasePassword) => {
+const comparePassword = (userPassword, databasePassword) => {
     return bcrypt.compareSync(userPassword, databasePassword)
 }
 
-module.exports = {comaprePassword}
+module.exports = {comparePassword}

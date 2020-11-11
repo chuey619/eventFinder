@@ -1,7 +1,7 @@
 const express = require('express')
 const authRouter = express.Router()
 const passport = require('../services/local')
-const User = require('../models/User')
+
 const usersController = require('../controllers/usersController')
 
 authRouter.post('/register', usersController.create)
@@ -32,7 +32,8 @@ authRouter.post('/login', async(req, res, next) => {
                         username: user.username,
                         password_digest: user.password_digest,
                         name: user.name,
-                        id: user.id
+                        id: user.id,
+                        email: user.email
                     }
                 }
             })
