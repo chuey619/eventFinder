@@ -35,11 +35,13 @@ app.use((req, res, next) => {
 
 
 app.use(express.static(path.join(__dirname, 'build')))
-
+app.get('/', (req, res) => {
+    res.send('hello world')
+})
 const authRoutes = require('./routes/authRouter')
 app.use('/auth', authRoutes)
-
-
+const itemsRoutes = require('./routes/itemsRouter')
+app.use('/items', itemsRoutes)
 
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/public', 'index.html'))

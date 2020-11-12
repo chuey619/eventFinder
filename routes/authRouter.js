@@ -1,5 +1,5 @@
-const express = require('express')
-const authRouter = express.Router()
+const authRouter = require('express').Router()
+
 const passport = require('../services/local')
 
 const usersController = require('../controllers/usersController')
