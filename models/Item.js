@@ -17,6 +17,14 @@ class Item {
             throw new Error(error)
         }
     }
+    static getAll = async () => {
+        try {
+            const foundItems = await db.manyOrNone(`SELECT * FROM items`)
+            return foundItems.map((item) => new this(item))
+        } catch(error) {
+            throw new Error(error)
+        }
+    }
     save = async () => {
         try {
             const newItem = await db.one(
@@ -49,3 +57,5 @@ class Item {
         }   
     }
 }
+
+module.exports = Item

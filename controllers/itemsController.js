@@ -4,7 +4,7 @@ const itemsController = {}
 itemsController.index = async (req, res, next) => {
     try {
         const foundItems = await Item.getAll()
-        res.json({
+        return res.json({
             message: "items found",
             data: foundItems
         })
@@ -15,7 +15,7 @@ itemsController.index = async (req, res, next) => {
 itemsController.show = async (req, res, next) => {
     try {
         const foundItem = await Item.findById(req.params.id)
-        res.json({
+        return res.json({
             message: 'Item Found',
             data : foundItem
         })
@@ -24,11 +24,11 @@ itemsController.show = async (req, res, next) => {
     }
 }
 
-itemsController.create = (req, res, next) => {
+itemsController.create = async (req, res, next) => {
     try {
         const newItem = new Item({price: req.body.price, description: req.body.description, seller_id: req.user.id, title: req.body.title, image: req.body.image})
         await newItem.save()
-        res.json({
+        return res.json({
             message: 'Item created',
             data: newItem
         })
@@ -41,7 +41,7 @@ itemsController.delete = async (req, res, next) => {
     try {
         const foundItem = await Item.findById(req.params.id)
         await foundItem.delete()
-        res.json({
+        return res.json({
             message: 'Item deleted',
             data: foundItem
         })
@@ -54,7 +54,7 @@ itemsController.update = async (req, res, next) => {
     try {
         const foundItem = await Item.findById(req.params.id)
         await foundItem.update(req.body)
-        res.json({
+        return res.json({
             message: 'Item updated',
             data: foundItem
         })
@@ -62,3 +62,5 @@ itemsController.update = async (req, res, next) => {
         next(error)
     }
 }
+
+module.exports = itemsController
