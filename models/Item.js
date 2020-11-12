@@ -7,7 +7,7 @@ class Item {
         this.description = item.description
         this.price = item.price
         this.image = item.image
-        this.seller = item.seller
+        this.seller_id = item.seller_id
     }
     static findById = async (id) => {
         try {
@@ -21,9 +21,9 @@ class Item {
         try {
             const newItem = await db.one(
                 `INSERT INTO items
-                (title, price, description, image, seller)
+                (title, price, description, image, seller_id)
                 VALUES
-                ($/title/, $/price/, $/description/, $/image/, $/seller/)`,
+                ($/title/, $/price/, $/description/, $/image/, $/seller_id/)`,
                 this
             )
             return Object.assign(this, newItem)

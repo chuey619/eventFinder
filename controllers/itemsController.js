@@ -26,7 +26,7 @@ itemsController.show = async (req, res, next) => {
 
 itemsController.create = (req, res, next) => {
     try {
-        const newItem = new Item(req.body)
+        const newItem = new Item({price: req.body.price, description: req.body.description, seller_id: req.user.id, title: req.body.title, image: req.body.image})
         await newItem.save()
         res.json({
             message: 'Item created',

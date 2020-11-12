@@ -10,7 +10,7 @@ const pgp = require('pg-promise')(options)
 const setDatabase = () => {
     if (process.env.NODE_ENV === 'development' || !process.env.NODE_ENV) {
         return pgp({
-            database: 'event_finder',
+            database: 'storefront',
             port: 5432,
             host: 'localhost',
             user: 'postgres',
